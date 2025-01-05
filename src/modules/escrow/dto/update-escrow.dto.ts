@@ -1,4 +1,8 @@
-import { PartialType } from '@nestjs/swagger';
-import { CreateEscrowDto } from './create-escrow.dto';
+import { IsString, IsEnum } from 'class-validator';
+import { EscrowStatus } from '../../../common/enums/escrow.enum';
 
-export class UpdateEscrowDto extends PartialType(CreateEscrowDto) {} 
+export class UpdateEscrowStatusDto {
+  @IsString()
+  @IsEnum(EscrowStatus)
+  status: EscrowStatus;
+} 

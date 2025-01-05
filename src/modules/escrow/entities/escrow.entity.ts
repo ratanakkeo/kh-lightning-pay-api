@@ -1,15 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { EscrowStatus } from '../../../common/enums/escrow.enum';
 
-export enum EscrowStatus {
-  INITIATED = 'initiated',
-  PAYMENT_LOCKED = 'payment_locked',
-  SHIPMENT_CONFIRMED = 'shipment_confirmed',
-  COMPLETED = 'completed',
-  DISPUTED = 'disputed',
-  REFUNDED = 'refunded'
-}
-
-@Entity('escrows')
+@Entity()
 export class Escrow {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -20,18 +12,21 @@ export class Escrow {
   @Column()
   sellerId: string;
 
-  @Column()
+  @Column('decimal')
   amount: number;
 
-  @Column()
-  lightningPaymentHash: string;
+  @Column({ nullable: true })
+  description: string;
 
   @Column({
     type: 'enum',
     enum: EscrowStatus,
-    default: EscrowStatus.INITIATED
+    default: EscrowStatus.PAYMENT_PENDING
   })
   status: EscrowStatus;
+
+  @Column({ nullable: true })
+  disputeReason: string;
 
   @CreateDateColumn()
   createdAt: Date;

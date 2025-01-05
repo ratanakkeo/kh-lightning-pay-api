@@ -1,14 +1,18 @@
-import { IsNotEmpty, IsNumber, IsUUID } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { IsString, IsNumber, IsNotEmpty } from 'class-validator';
 
 export class CreateEscrowDto {
-  @ApiProperty()
-  @IsUUID()
   @IsNotEmpty()
+  @IsString()
+  buyerId: string;
+
+  @IsNotEmpty()
+  @IsString()
   sellerId: string;
 
-  @ApiProperty()
-  @IsNumber()
   @IsNotEmpty()
+  @IsNumber()
   amount: number;
+
+  @IsString()
+  description?: string;
 } 

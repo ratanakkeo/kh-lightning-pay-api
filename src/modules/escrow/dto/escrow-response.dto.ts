@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { EscrowStatus } from '../entities/escrow.entity';
+import { EscrowStatus } from '../../../common/enums/escrow.enum';
 
 export class EscrowResponseDto {
   @ApiProperty()
